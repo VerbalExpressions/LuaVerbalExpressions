@@ -1,0 +1,1085 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>vex</h1>
+
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Anchors">Anchors </a></li>
+<li><a href="#Character_Matchers">Character Matchers </a></li>
+<li><a href="#Quantifiers">Quantifiers </a></li>
+<li><a href="#Groups_and_Captures">Groups and Captures </a></li>
+<li><a href="#Flags">Flags </a></li>
+<li><a href="#Work_Functions">Work Functions </a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul>
+  <li><strong>vex</strong></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>vex</code></h1>
+
+<p>
+
+</p>
+<p>
+
+</p>
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+   local vex = require(&quot;vex&quot;)
+   local testURL = &quot;https://www.google.com&quot;
+   local tester = vex():startOfLine():find(&quot;http&quot;):maybe(&quot;s&quot;):find(&quot;://&quot;):maybe(&quot;www.&quot;):anythingBut(&quot; &quot;):endOfLine()
+   local match = tester:match(testURL)
+   print(match) -- Prints the test URL</pre>
+    </ul>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#new">new&nbsp;()</a></td>
+	<td class="summary">Creates and returns a new Verbal Expressions object.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#__concat">__concat&nbsp;(p, a)</a></td>
+	<td class="summary">Concatenates vex objects, combining their expressions and flags.</td>
+	</tr>
+</table>
+<h2><a href="#Anchors">Anchors </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#vex:startOfLine">vex:startOfLine&nbsp;()</a></td>
+	<td class="summary">Specify that the expression should match at the start of a line of text.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:endOfLine">vex:endOfLine&nbsp;()</a></td>
+	<td class="summary">Specify that the expression should match at the end of a line of text.</td>
+	</tr>
+</table>
+<h2><a href="#Character_Matchers">Character Matchers </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#vex:find">vex:find&nbsp;(v)</a></td>
+	<td class="summary">Find the specified text after the last matcher.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:maybe">vex:maybe&nbsp;(v)</a></td>
+	<td class="summary">Find the specified text after the last matcher, but don't stop if it's not there.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:anything">vex:anything&nbsp;()</a></td>
+	<td class="summary">Find anything.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:anythingBut">vex:anythingBut&nbsp;(v)</a></td>
+	<td class="summary">Find anything except for the specified text.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:something">vex:something&nbsp;()</a></td>
+	<td class="summary">Find at least one thing.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:lineBreak">vex:lineBreak&nbsp;()</a></td>
+	<td class="summary">Find a line break.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:br">vex:br&nbsp;()</a></td>
+	<td class="summary">
+
+</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:tab">vex:tab&nbsp;()</a></td>
+	<td class="summary">Find a tab character.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:word">vex:word&nbsp;()</a></td>
+	<td class="summary">Find a word made up of letters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:anyOf">vex:anyOf&nbsp;(v)</a></td>
+	<td class="summary">Find any of the specified characters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:any">vex:any&nbsp;(v)</a></td>
+	<td class="summary">
+
+</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:range">vex:range&nbsp;(...)</a></td>
+	<td class="summary">Find any range of characters.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:multiple">vex:multiple&nbsp;(v, n [, m])</a></td>
+	<td class="summary">Match a number of the specified text.</td>
+	</tr>
+</table>
+<h2><a href="#Quantifiers">Quantifiers </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#vex:exactly">vex:exactly&nbsp;(n)</a></td>
+	<td class="summary">Match an exact number of the last group or matcher.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:between">vex:between&nbsp;(n, m)</a></td>
+	<td class="summary">Match a number of the last group or matcher between 'n' and 'm' (inclusive).</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:atLeast">vex:atLeast&nbsp;(n)</a></td>
+	<td class="summary">Match at least a number of the last group or matcher.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:noMoreThan">vex:noMoreThan&nbsp;(n)</a></td>
+	<td class="summary">Match no more than a number of the last group or matcher.</td>
+	</tr>
+</table>
+<h2><a href="#Groups_and_Captures">Groups and Captures </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#vex:alternatively">vex:alternatively&nbsp;()</a></td>
+	<td class="summary">Specifies that either the previous matcher or group or the following matcher or group is acceptable.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:beginCapture">vex:beginCapture&nbsp;()</a></td>
+	<td class="summary">Marks the beginning of a capture.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:endCapture">vex:endCapture&nbsp;()</a></td>
+	<td class="summary">Marks the end of a capture.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:beginGroup">vex:beginGroup&nbsp;()</a></td>
+	<td class="summary">Marks the beginning of a group.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:endGroup">vex:endGroup&nbsp;()</a></td>
+	<td class="summary">Marks the end of a group.</td>
+	</tr>
+</table>
+<h2><a href="#Flags">Flags </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#vex:withAnyCase">vex:withAnyCase&nbsp;()</a></td>
+	<td class="summary">Matches the expression against any character case.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:stopAtFirst">vex:stopAtFirst&nbsp;()</a></td>
+	<td class="summary">Forces the expression to stop once it's found a match.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:searchOneLine">vex:searchOneLine&nbsp;()</a></td>
+	<td class="summary">Forces the expression to stop at the end of a line.</td>
+	</tr>
+</table>
+<h2><a href="#Work_Functions">Work Functions </a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#vex:match">vex:match&nbsp;(s, init)</a></td>
+	<td class="summary">Matches a vex expression against a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:seek">vex:seek&nbsp;(s, init)</a></td>
+	<td class="summary">Find the position of the first match in a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:gmatch">vex:gmatch&nbsp;(s)</a></td>
+	<td class="summary">Returns an interator that returns the next match in the string every time it is called.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:gsub">vex:gsub&nbsp;(s, repl [, n=nil])</a></td>
+	<td class="summary">Replaces all occurances of each match in a string with another string, the return value of a function, or the corresponding value in a table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#vex:replace">vex:replace&nbsp;()</a></td>
+	<td class="summary">
+
+</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "new"></a>
+    <strong>new&nbsp;()</strong>
+    </dt>
+    <dd>
+    Creates and returns a new Verbal Expressions object. </p>
+
+<p> Note: You can also create a new Verbal Expressions object by calling the vex table directly.
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+  v = vex.new()
+  v = vex() -- Same as vex.new()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "__concat"></a>
+    <strong>__concat&nbsp;(p, a)</strong>
+    </dt>
+    <dd>
+    Concatenates vex objects, combining their expressions and flags. </p>
+
+<p> Concatenated vex objects take the highest value when it comes to flags. That is to say, if a flag is set in one of the operands,
+ it will be set in the resulting vex object.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">p</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         A vex object</li>
+        <li><span class="parameter">a</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         A vex object</li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+   <span class="keyword">local</span> p = vex():beginCapture():find(<span class="string">"http"</span>):maybe(<span class="string">"s"</span>):endCapture():<span class="keyword">then</span>(<span class="string">"://"</span>)
+   <span class="keyword">local</span> s = vex():beginCapture():word():endCapture():<span class="keyword">then</span>(<span class="string">"."</span>)
+   <span class="keyword">local</span> t = vex():beginCapture():word():endCapture():anything()
+   <span class="keyword">local</span> tester = p .. s .. s .. t
+   <span class="keyword">local</span> url = <span class="string">"https://www.google.com/"</span>
+   <span class="global">print</span>(tester:match(url)) -- Prints <span class="string">"https    www    google    com"</span></pre>
+    </ul>
+
+</dd>
+</dl>
+    <h2><a name="Anchors"></a>Anchors </h2>
+        Anchors.
+ Anchors attach an expression to the beginning or end of a line of text.
+    <dl class="function">
+    <dt>
+    <a name = "vex:startOfLine"></a>
+    <strong>vex:startOfLine&nbsp;()</strong>
+    </dt>
+    <dd>
+    Specify that the expression should match at the start of a line of text.
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:endOfLine"></a>
+    <strong>vex:endOfLine&nbsp;()</strong>
+    </dt>
+    <dd>
+    Specify that the expression should match at the end of a line of text.
+
+
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Character_Matchers"></a>Character Matchers </h2>
+        Character Matchers.
+ Character matchers are used to match against certain kinds of text after the previous matcher or group.
+ If the character matcher matcher(v) existed, its usage could be described with
+            <h3>Usage:</h3>
+            <pre class="example">v = vex():matcher(<span class="string">"text"</span>)</pre>
+    <dl class="function">
+    <dt>
+    <a name = "vex:find"></a>
+    <strong>vex:find&nbsp;(v)</strong>
+    </dt>
+    <dd>
+    Find the specified text after the last matcher.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The text to match</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:maybe"></a>
+    <strong>vex:maybe&nbsp;(v)</strong>
+    </dt>
+    <dd>
+    Find the specified text after the last matcher, but don't stop if it's not there.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The text to match</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:anything"></a>
+    <strong>vex:anything&nbsp;()</strong>
+    </dt>
+    <dd>
+    Find anything.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> v = vex():anything() -- Matches against anything (including nothing).</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "vex:anythingBut"></a>
+    <strong>vex:anythingBut&nbsp;(v)</strong>
+    </dt>
+    <dd>
+    Find anything except for the specified text.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The text to not match</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:something"></a>
+    <strong>vex:something&nbsp;()</strong>
+    </dt>
+    <dd>
+    Find at least one thing.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> v = vex():something() -- Matches against anything (except nothing).</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "vex:lineBreak"></a>
+    <strong>vex:lineBreak&nbsp;()</strong>
+    </dt>
+    <dd>
+    Find a line break.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> v = vex():lineBreak()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "vex:br"></a>
+    <strong>vex:br&nbsp;()</strong>
+    </dt>
+    <dd>
+
+
+
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="readme.html#vex:lineBreak">vex:lineBreak</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "vex:tab"></a>
+    <strong>vex:tab&nbsp;()</strong>
+    </dt>
+    <dd>
+    Find a tab character.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> v = vex():tab()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "vex:word"></a>
+    <strong>vex:word&nbsp;()</strong>
+    </dt>
+    <dd>
+    Find a word made up of letters.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> v = vex():word()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "vex:anyOf"></a>
+    <strong>vex:anyOf&nbsp;(v)</strong>
+    </dt>
+    <dd>
+    Find any of the specified characters.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The characters to match</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:any"></a>
+    <strong>vex:any&nbsp;(v)</strong>
+    </dt>
+    <dd>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The characters to match</li>
+    </ul>
+
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="readme.html#vex:anyOf">vex:anyOf</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "vex:range"></a>
+    <strong>vex:range&nbsp;(...)</strong>
+    </dt>
+    <dd>
+    Find any range of characters.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">...</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         A set of characters to build a set of ranges.</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> v = vex():range(<span class="string">"0"</span>, <span class="string">"9"</span>, <span class="string">"A"</span>, <span class="string">"F"</span>, <span class="string">"a"</span>, <span class="string">"f"</span>) -- Finds any character ranging from <span class="number">0</span> to <span class="number">9</span>, A to F, <span class="keyword">or</span> a to f.</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "vex:multiple"></a>
+    <strong>vex:multiple&nbsp;(v, n [, m])</strong>
+    </dt>
+    <dd>
+    Match a number of the specified text.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">v</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The text to match</li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">number</span></span>
+         The minimum quantity to match</li>
+        <li><span class="parameter">m</span>
+            <span class="types"><span class="type">number</span></span>
+         The maximum quantity to match</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Quantifiers"></a>Quantifiers </h2>
+        Quantifiers.
+ Quantifiers allow you to specify that the last group or matcher should be repeated or optional.
+ If the quantifier quantifier(n) existed, its usage could be described with
+            <h3>Usage:</h3>
+            <pre class="example">v = vex():matcher(<span class="string">"text"</span>):quantifier(<span class="number">4</span>)</pre>
+    <dl class="function">
+    <dt>
+    <a name = "vex:exactly"></a>
+    <strong>vex:exactly&nbsp;(n)</strong>
+    </dt>
+    <dd>
+    Match an exact number of the last group or matcher.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">number</span></span>
+         The quantity to match</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:between"></a>
+    <strong>vex:between&nbsp;(n, m)</strong>
+    </dt>
+    <dd>
+    Match a number of the last group or matcher between 'n' and 'm' (inclusive).
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">number</span></span>
+         The minimum quantity to match</li>
+        <li><span class="parameter">m</span>
+            <span class="types"><span class="type">number</span></span>
+         The maximum quantity to match</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:atLeast"></a>
+    <strong>vex:atLeast&nbsp;(n)</strong>
+    </dt>
+    <dd>
+    Match at least a number of the last group or matcher.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">number</span></span>
+         The quantity to match</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:noMoreThan"></a>
+    <strong>vex:noMoreThan&nbsp;(n)</strong>
+    </dt>
+    <dd>
+    Match no more than a number of the last group or matcher.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">number</span></span>
+         The quantity to match</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Groups_and_Captures"></a>Groups and Captures </h2>
+        Groups and Captures.
+ Groups and captures help you group expressions together and grab certain elements to be returned later when a match is made.
+ The difference between groups and captures is that groups are used to group expressions together to be modified by quantifiers or the vex:alternatively function while
+ captures are used to specify that the part of the text that an expression matches should be returned later.
+    <dl class="function">
+    <dt>
+    <a name = "vex:alternatively"></a>
+    <strong>vex:alternatively&nbsp;()</strong>
+    </dt>
+    <dd>
+    Specifies that either the previous matcher or group or the following matcher or group is acceptable.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:beginCapture"></a>
+    <strong>vex:beginCapture&nbsp;()</strong>
+    </dt>
+    <dd>
+    Marks the beginning of a capture.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:endCapture"></a>
+    <strong>vex:endCapture&nbsp;()</strong>
+    </dt>
+    <dd>
+    Marks the end of a capture.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:beginGroup"></a>
+    <strong>vex:beginGroup&nbsp;()</strong>
+    </dt>
+    <dd>
+    Marks the beginning of a group.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:endGroup"></a>
+    <strong>vex:endGroup&nbsp;()</strong>
+    </dt>
+    <dd>
+    Marks the end of a group.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Flags"></a>Flags </h2>
+        Flags.
+ Flags are used to specify that certain properties should be applied to an expression.
+    <dl class="function">
+    <dt>
+    <a name = "vex:withAnyCase"></a>
+    <strong>vex:withAnyCase&nbsp;()</strong>
+    </dt>
+    <dd>
+    Matches the expression against any character case.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:stopAtFirst"></a>
+    <strong>vex:stopAtFirst&nbsp;()</strong>
+    </dt>
+    <dd>
+    Forces the expression to stop once it's found a match.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:searchOneLine"></a>
+    <strong>vex:searchOneLine&nbsp;()</strong>
+    </dt>
+    <dd>
+    Forces the expression to stop at the end of a line.
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The vex object (for chaining)
+    </ol>
+
+
+
+
+</dd>
+</dl>
+    <h2><a name="Work_Functions"></a>Work Functions </h2>
+        Work Functions.
+ These functions operate on text to resolve the expression that a vex object is carrying.
+    <dl class="function">
+    <dt>
+    <a name = "vex:match"></a>
+    <strong>vex:match&nbsp;(s, init)</strong>
+    </dt>
+    <dd>
+    Matches a vex expression against a string.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to match against</li>
+        <li><span class="parameter">init</span>
+            <span class="types"><span class="type">number</span></span>
+         The position in the string to begin matching</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        The results of the match as multiple strings
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="http://www.lua.org/manual/5.1/manual.html#pdf-string.match">string.match</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "vex:seek"></a>
+    <strong>vex:seek&nbsp;(s, init)</strong>
+    </dt>
+    <dd>
+    Find the position of the first match in a string.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to match against</li>
+        <li><span class="parameter">init</span>
+            <span class="types"><span class="type">number</span></span>
+         The position in the string to begin matching</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">number</span></span>
+        The index at which the first match is at
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="http://rrthomas.github.io/lrexlib/manual.html#find">rex.find</a>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "vex:gmatch"></a>
+    <strong>vex:gmatch&nbsp;(s)</strong>
+    </dt>
+    <dd>
+    Returns an interator that returns the next match in the string every time it is called.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to match against</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+          <span class="types"><span class="type">function</span></span>
+        <a href="http://math2.org/luasearch/rex.html">rex</a> match iterator
+    </ol>
+
+
+    <h3>see also:</h3>
+    <ul>
+         <li><a href="http://rrthomas.github.io/lrexlib/manual.html#gmatch">rex.gmatch</a></li>
+         <li><a href="http://www.lua.org/manual/5.1/manual.html#pdf-string.gmatch">string.gmatch</a></li>
+    </ul>
+
+
+</dd>
+    <dt>
+    <a name = "vex:gsub"></a>
+    <strong>vex:gsub&nbsp;(s, repl [, n=nil])</strong>
+    </dt>
+    <dd>
+    Replaces all occurances of each match in a string with another string, the return value of a function, or the corresponding value in a table.
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">s</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to operate on</li>
+        <li><span class="parameter">repl</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a>, <span class="type">function</span> or <a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         What to replace matches with</li>
+        <li><span class="parameter">n</span>
+            <span class="types"><span class="type">number</span></span>
+         The maximum number of matches to search for (or unlimited if nil)</li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+          <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        The string with replacements made</li>
+        <li>
+          <span class="types"><span class="type">number</span></span>
+        The number of matches found</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "vex:replace"></a>
+    <strong>vex:replace&nbsp;()</strong>
+    </dt>
+    <dd>
+
+
+
+
+
+    <h3>see also:</h3>
+    <ul>
+         <a href="readme.html#vex:gsub">vex:gsub</a>
+    </ul>
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.3.12</a></i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
