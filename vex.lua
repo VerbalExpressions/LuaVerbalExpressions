@@ -17,55 +17,53 @@
 local rex = require("rex_pcre")
 
 local vex = {}
-local meta = 	{
-					["__index"]		= 	vex,
-					["__metatable"]	=	true,
-					["__concat"]	=	function(p, a)
-											assert(type(p.pattern) == "string" and type(a.pattern) == "string", "cannot concat arguments (missing pattern)")
+local meta =     {
+                    ["__index"]        =    vex,
+                    ["__metatable"]    =    true,
+                    ["__concat"]       =    function(p, a)
+                                            local v = {}
+                                                v.pattern = p.pattern .. a.pattern
 
-											local v = {}
-											v.pattern = p.pattern .. a.pattern
+                                                v.oneline = p.oneline or a.oneline
+                                                v.findone = p.findone or a.findone
+                                                v.caseless = p.caseless or a.caseless
+                                                v.capturelevel = p.capturelevel + a.capturelevel
+                                                v.grouplevel = p.grouplevel + a.grouplevel
 
-											v.oneline = p.oneline or a.oneline
-											v.findone = p.findone or a.findone
-											v.caseless = p.caseless or a.caseless
-											v.capturelevel = p.capturelevel + a.capturelevel
-											v.grouplevel = p.grouplevel + a.grouplevel
+                                                setmetatable(v, meta)
+                                                return v
+                                            end,
+                    ["__tostring"]    =     function(self)
+                                                return self.pattern
+                                            end
+                }
 
-											setmetatable(v, meta)
-											return v
-										end,
-					["__tostring"]	=	function(self)
-															return self.pattern
-														end
-				}
+setmetatable(vex,    {
+                            ["__call"]  =   function() return vex.new() end
+                        })
 
-setmetatable(vex,	{
-										["__call"]	=	function() return vex.new() end
-									})
-
-local rexChars =	{
-						["["] 	= "\\[",
-						["]"] 	= "\\]",
-						["\\"] 	= "\\\\",
-						["^"] 	= "\\^",
-						["$"] 	= "\\$",
-						["."] 	= "\\.",
-						["|"] 	= "\\|",
-						["?"] 	= "\\?",
-						["*"] 	= "\\*",
-						["+"] 	= "\\+",
-						["("] 	= "\\(",
-						[")"] 	= "\\)",
-						[" "]	= "\\ "
-					}
+local rexChars =    {
+                        ["["]   = "\\[",
+                        ["]"]   = "\\]",
+                        ["\\"]  = "\\\\",
+                        ["^"]   = "\\^",
+                        ["$"]   = "\\$",
+                        ["."]   = "\\.",
+                        ["|"]   = "\\|",
+                        ["?"]   = "\\?",
+                        ["*"]   = "\\*",
+                        ["+"]   = "\\+",
+                        ["("]   = "\\(",
+                        [")"]   = "\\)",
+                        [" "]   = "\\ "
+                    }
 
 local function add(self, v)
-	v = tostring(v)
-	assert(v ~= nil, "Invalid pattern!")
+    v = tostring(v)
+    assert(v ~= nil, "Invalid pattern!")
 
-	self.pattern = self.pattern .. v
-	return self
+    self.pattern = self.pattern .. v
+    return self
 end
 
 ------------------------
@@ -77,18 +75,18 @@ end
 --  v = vex() -- Same as vex.new()
 -- @static
 function vex.new()
-	local v = {}
-	v.pattern = ""
+    local v = {}
+    v.pattern = ""
 
-	-- Flags
-	v.oneline = false
-	v.findone = false
-	v.caseless = false
-	v.capturelevel = 0
-	v.grouplevel = 0
+    -- Flags
+    v.oneline = false
+    v.findone = false
+    v.caseless = false
+    v.capturelevel = 0
+    v.grouplevel = 0
 
-	setmetatable(v, meta)
-	return v
+    setmetatable(v, meta)
+    return v
 end
 
 ------------------------
@@ -113,22 +111,22 @@ end
 
 ------------------------
 -- Specify that the expression should match at the start of a line of text.
-function vex:startOfLine()
-	if self.pattern:sub(1, 1) ~= "^" then
-		self.pattern = "^" .. self.pattern
-	end
+function vex:startofline()
+    if self.pattern:sub(1, 1) ~= "^" then
+        self.pattern = "^" .. self.pattern
+    end
 
-	return self
+    return self
 end
 
 ------------------------
 -- Specify that the expression should match at the end of a line of text.
-function vex:endOfLine()
-	if self.pattern:sub(-1, -1) ~= "$" then
-		self.pattern = self.pattern .. "$"
-	end
+function vex:endofline()
+    if self.pattern:sub(-1, -1) ~= "$" then
+        self.pattern = self.pattern .. "$"
+    end
 
-	return self
+    return self
 end
 
 --- Character Matchers.
@@ -142,10 +140,10 @@ end
 -- @tparam string v The text to match
 -- @treturn table The vex object (for chaining)
 function vex:find(v)
-	if type(v) == "string" then
-		v = v:gsub(".", rexChars)
-	end
-	return add(self, "(?:" .. tostring(v) .. ")")
+    if type(v) == "string" then
+        v = v:gsub(".", rexChars)
+    end
+    return add(self, "(?:" .. tostring(v) .. ")")
 end
 
 ------------------------
@@ -153,10 +151,10 @@ end
 -- @tparam string v The text to match
 -- @treturn table The vex object (for chaining)
 function vex:maybe(v)
-	if type(v) == "string" then
-		v = v:gsub(".", rexChars)
-	end
-	return add(self, "(?:" .. tostring(v) .. ")?")
+    if type(v) == "string" then
+        v = v:gsub(".", rexChars)
+    end
+    return add(self, "(?:" .. tostring(v) .. ")?")
 end
 
 ------------------------
@@ -164,18 +162,18 @@ end
 -- @usage local v = vex():anything() -- Matches against anything (including nothing).
 -- @treturn table The vex object (for chaining)
 function vex:anything()
-	return add(self, "(?:.*)")
+    return add(self, "(?:.*)")
 end
 
 ------------------------
 -- Find anything except for the specified text.
 -- @tparam string v The text to not match
 -- @treturn table The vex object (for chaining)
-function vex:anythingBut(v)
-	if type(v) == "string" then
-		v = v:gsub(".", rexChars)
-	end
-	return add(self, "(?:[^" .. tostring(v) .. "]*)")
+function vex:anythingbut(v)
+    if type(v) == "string" then
+        v = v:gsub(".", rexChars)
+    end
+    return add(self, "(?:[^" .. tostring(v) .. "]*)")
 end
 
 ------------------------
@@ -183,15 +181,15 @@ end
 -- @usage local v = vex():something() -- Matches against anything (except nothing).
 -- @treturn table The vex object (for chaining)
 function vex:something()
-	return add(self, "(?:.+)")
+    return add(self, "(?:.+)")
 end
 
 ------------------------
 -- Find a line break.
 -- @usage local v = vex():lineBreak()
 -- @treturn table The vex object (for chaining)
-function vex:lineBreak()
-	return add(self, "(?:(?:\n)|(?:\r\n))")
+function vex:linebreak()
+    return add(self, "(?:(?:\n)|(?:\r\n))")
 end
 
 ------------------------
@@ -205,7 +203,7 @@ vex["br"] = vex["lineBreak"]
 -- @usage local v = vex():tab()
 -- @treturn table The vex object (for chaining)
 function vex:tab()
-	return add(self, "(?:\t)")
+    return add(self, "(?:\t)")
 end
 
 ------------------------
@@ -213,18 +211,18 @@ end
 -- @usage local v = vex():word()
 -- @treturn table The vex object (for chaining)
 function vex:word()
-	return add(self, "(?:\w+)")
+    return add(self, "(?:\w+)")
 end
 
 ------------------------
 -- Find any of the specified characters.
 -- @tparam string v The characters to match
 -- @treturn table The vex object (for chaining)
-function vex:anyOf(v)
-	if type(v) == "string" then
-		v = v:gsub(".", rexChars)
-	end
-	return add(self, "(?:[" .. tostring(v) .. "])")
+function vex:anyof(v)
+    if type(v) == "string" then
+        v = v:gsub(".", rexChars)
+    end
+    return add(self, "(?:[" .. tostring(v) .. "])")
 end
 
 ------------------------
@@ -239,21 +237,21 @@ vex["any"] = vex["anyOf"]
 -- @usage local v = vex():range("0", "9", "A", "F", "a", "f") -- Finds any character ranging from 0 to 9, A to F, or a to f.
 -- @treturn table The vex object (for chaining)
 function vex:range(...)
-	local args = {...}
-	local expr = ""
+    local args = {...}
+    local expr = ""
 
-	assert(#args % 2 == 0, "Incomplete range (Received " .. #args .. " arguments, missing one)")
-	for i, v in ipairs(args) do
-		assert(type(v) == "string", "bad argument #" .. i .. " to 'range' (string expected, got " .. type(v) .. ")")
-		if i % 2 ~= 0 then
-			expr = expr .. v:sub(1, 1)
-		elseif i % 2 == 0 then
-			expr = expr .. "-" .. v:sub(1)
-		end
-	end
+    assert(#args % 2 == 0, "Incomplete range (Received " .. #args .. " arguments, missing one)")
+    for i, v in ipairs(args) do
+        assert(type(v) == "string", "bad argument #" .. i .. " to 'range' (string expected, got " .. type(v) .. ")")
+        if i % 2 ~= 0 then
+            expr = expr .. v:sub(1, 1)
+        elseif i % 2 == 0 then
+            expr = expr .. "-" .. v:sub(1)
+        end
+    end
 
-	expr = expr:gsub(".", rexChars)
-	return add(self, "(?:[" .. expr .. "])")
+    expr = expr:gsub(".", rexChars)
+    return add(self, "(?:[" .. expr .. "])")
 end
 
 ------------------------
@@ -263,18 +261,18 @@ end
 -- @tparam[opt] number m The maximum quantity to match
 -- @treturn table The vex object (for chaining)
 function vex:multiple(v, n, m)
-	assert(type(n) == "number", "bad argument #1 to 'between' (number expected, got " .. type(n) .. ")")
-	assert(type(m) == "number" or m == nil, "bad argument #2 to 'between' (number expected, got " .. type(m) .. ")")
-	assert(n > 0, "bad argument #1 to 'between' (minimum amount must be greater than or equal to 0)")
-	assert(m > n or m == nil, "bad argument #2 to 'between' (maximum amount must be greater than the minimum amount)")
+    assert(type(n) == "number", "bad argument #1 to 'between' (number expected, got " .. type(n) .. ")")
+    assert(type(m) == "number" or m == nil, "bad argument #2 to 'between' (number expected, got " .. type(m) .. ")")
+    assert(n > 0, "bad argument #1 to 'between' (minimum amount must be greater than or equal to 0)")
+    assert(m > n or m == nil, "bad argument #2 to 'between' (maximum amount must be greater than the minimum amount)")
 
-	self:find(v)
+    self:find(v)
 
-	if m ~= nil then
-		return self:between(n, m)
-	else
-		return self:atLeast(n)
-	end
+    if m ~= nil then
+        return self:between(n, m)
+    else
+        return self:atLeast(n)
+    end
 end
 
 --- Quantifiers.
@@ -288,9 +286,9 @@ end
 -- @tparam number n The quantity to match
 -- @treturn table The vex object (for chaining)
 function vex:exactly(n)
-	assert(type(n) == "number", "bad argument #1 to 'exactly' (number expected, got " .. type(n) .. ")")
-	assert(n > 0, "bad argument #1 to 'exactly' (amount must be greater than 0)")
-	return add(self, "{" .. n .. "}")
+    assert(type(n) == "number", "bad argument #1 to 'exactly' (number expected, got " .. type(n) .. ")")
+    assert(n > 0, "bad argument #1 to 'exactly' (amount must be greater than 0)")
+    return add(self, "{" .. n .. "}")
 end
 
 ------------------------
@@ -299,31 +297,31 @@ end
 -- @tparam number m The maximum quantity to match
 -- @treturn table The vex object (for chaining)
 function vex:between(n, m)
-	assert(type(n) == "number", "bad argument #1 to 'between' (number expected, got " .. type(n) .. ")")
-	assert(type(m) == "number", "bad argument #2 to 'between' (number expected, got " .. type(m) .. ")")
-	assert(n > 0, "bad argument #1 to 'between' (minimum amount must be greater than or equal to 0)")
-	assert(m > n, "bad argument #2 to 'between' (maximum amount must be greater than the minimum amount)")
-	return add(self, "{" .. n .. "," .. m .. "}")
+    assert(type(n) == "number", "bad argument #1 to 'between' (number expected, got " .. type(n) .. ")")
+    assert(type(m) == "number", "bad argument #2 to 'between' (number expected, got " .. type(m) .. ")")
+    assert(n > 0, "bad argument #1 to 'between' (minimum amount must be greater than or equal to 0)")
+    assert(m > n, "bad argument #2 to 'between' (maximum amount must be greater than the minimum amount)")
+    return add(self, "{" .. n .. "," .. m .. "}")
 end
 
 ------------------------
 -- Match at least a number of the last group or matcher.
 -- @tparam number n The quantity to match
 -- @treturn table The vex object (for chaining)
-function vex:atLeast(n)
-	assert(type(n) == "number", "bad argument #1 to 'atLeast' (number expected, got " .. type(n) .. ")")
-	assert(n > 0, "bad argument #1 to 'atLeast' (amount must be greater than or equal to 0)")
-	return add(self, "{" .. n .. ",}")
+function vex:atleast(n)
+    assert(type(n) == "number", "bad argument #1 to 'atLeast' (number expected, got " .. type(n) .. ")")
+    assert(n > 0, "bad argument #1 to 'atLeast' (amount must be greater than or equal to 0)")
+    return add(self, "{" .. n .. ",}")
 end
 
 ------------------------
 -- Match no more than a number of the last group or matcher.
 -- @tparam number n The quantity to match
 -- @treturn table The vex object (for chaining)
-function vex:noMoreThan(n)
-	assert(type(n) == "number", "bad argument #1 to 'noMoreThan' (number expected, got " .. type(n) .. ")")
-	assert(n > 0, "bad argument #1 to 'noMoreThan' (amount must be greater than or equal to 0)")
-	return add(self, "{0," .. n .. "}")
+function vex:nomorethan(n)
+    assert(type(n) == "number", "bad argument #1 to 'noMoreThan' (number expected, got " .. type(n) .. ")")
+    assert(n > 0, "bad argument #1 to 'noMoreThan' (amount must be greater than or equal to 0)")
+    return add(self, "{0," .. n .. "}")
 end
 
 --- Groups and Captures.
@@ -336,41 +334,41 @@ end
 -- Specifies that either the previous matcher or group or the following matcher or group is acceptable.
 -- @treturn table The vex object (for chaining)
 function vex:alternatively()
-	return add(self, "|")
+    return add(self, "|")
 end
 
 ------------------------
 -- Marks the beginning of a capture.
 -- @treturn table The vex object (for chaining)
-function vex:beginCapture()
-	self.capturelevel = self.capturelevel + 1
-	return add(self, "(")
+function vex:begincapture()
+    self.capturelevel = self.capturelevel + 1
+    return add(self, "(")
 end
 
 ------------------------
 -- Marks the end of a capture.
 -- @treturn table The vex object (for chaining)
-function vex:endCapture()
-	assert(self.capturelevel > 0, "No more open captures")
-	self.capturelevel = self.capturelevel - 1
-	return add(self, ")")
+function vex:endcapture()
+    assert(self.capturelevel > 0, "No more open captures")
+    self.capturelevel = self.capturelevel - 1
+    return add(self, ")")
 end
 
 ------------------------
 -- Marks the beginning of a group.
 -- @treturn table The vex object (for chaining)
-function vex:beginGroup()
-	self.grouplevel = self.grouplevel + 1
-	return add(self, "(?:")
+function vex:begingroup()
+    self.grouplevel = self.grouplevel + 1
+    return add(self, "(?:")
 end
 
 ------------------------
 -- Marks the end of a group.
 -- @treturn table The vex object (for chaining)
-function vex:endGroup()
-	assert(self.grouplevel > 0, "No more open groups")
-	self.grouplevel = self.grouplevel - 1
-	return add(self, ")")
+function vex:endgroup()
+    assert(self.grouplevel > 0, "No more open groups")
+    self.grouplevel = self.grouplevel - 1
+    return add(self, ")")
 end
 
 --- Flags.
@@ -380,25 +378,25 @@ end
 ------------------------
 -- Matches the expression against any character case.
 -- @treturn table The vex object (for chaining)
-function vex:withAnyCase()
-	self.caseless = true
-	return self
+function vex:withanycase()
+    self.caseless = true
+    return self
 end
 
 ------------------------
 -- Forces the expression to stop once it's found a match.
 -- @treturn table The vex object (for chaining)
-function vex:stopAtFirst()
-	self.findone = true
-	return self
+function vex:stopatfirst()
+    self.findone = true
+    return self
 end
 
 ------------------------
 -- Forces the expression to stop at the end of a line.
 -- @treturn table The vex object (for chaining)
-function vex:searchOneLine()
-	self.oneline = true
-	return self
+function vex:searchoneline()
+    self.oneline = true
+    return self
 end
 
 --- Work Functions.
@@ -414,10 +412,10 @@ end
 function vex:match(s, init)
     init = init or 1
 
-	assert(type(s) == "string", "bad argument #1 to 'match' (string expected, got " .. type(s) .. ")")
-	assert(type(init) == "number", "bad argument #2 to 'match' (number expected, got " .. type(init) .. ")")
+    assert(type(s) == "string", "bad argument #1 to 'match' (string expected, got " .. type(s) .. ")")
+    assert(type(init) == "number", "bad argument #2 to 'match' (number expected, got " .. type(init) .. ")")
 
-	return rex.match(s, self.pattern, init, (self.caseless and 1 or 0) + (self.oneline and 2 or 0))
+    return rex.match(s, self.pattern, init, (self.caseless and 1 or 0) + (self.oneline and 2 or 0))
 end
 
 ------------------------
@@ -427,10 +425,10 @@ end
 -- @treturn number The index at which the first match is at
 -- @see rex.find
 function vex:seek(s, init)
-	assert(type(s) == "string", "bad argument #1 to 'seek' (string expected, got " .. type(s) .. ")")
-	assert(type(init) == "number", "bad argument #2 to 'seek' (number expected, got " .. type(init) .. ")")
+    assert(type(s) == "string", "bad argument #1 to 'seek' (string expected, got " .. type(s) .. ")")
+    assert(type(init) == "number", "bad argument #2 to 'seek' (number expected, got " .. type(init) .. ")")
 
-	return rex.find(s, self.pattern, init, (self.caseless and 1 or 0) + (self.oneline and 2 or 0))
+    return rex.find(s, self.pattern, init, (self.caseless and 1 or 0) + (self.oneline and 2 or 0))
 end
 
 ------------------------
@@ -440,9 +438,9 @@ end
 -- @see rex.gmatch
 -- @see string.gmatch
 function vex:gmatch(s)
-	assert(type(s) == "string", "bad argument #1 to 'gmatch' (string expected, got " .. type(s) .. ")")
+    assert(type(s) == "string", "bad argument #1 to 'gmatch' (string expected, got " .. type(s) .. ")")
 
-	return rex.gmatch(s, self.pattern, (self.caseless and 1 or 0) + (self.oneline and 2 or 0))
+    return rex.gmatch(s, self.pattern, (self.caseless and 1 or 0) + (self.oneline and 2 or 0))
 end
 
 ------------------------
@@ -453,11 +451,11 @@ end
 -- @treturn string The string with replacements made
 -- @treturn number The number of matches found
 function vex:gsub(s, repl, n)
-	assert(type(s) == "string", "bad argument #1 to 'gsub' (string expected, got " .. type(s) .. ")")
-	assert(type(repl) == "string" or type(repl) == "function" or type(repl) == "table", "bad argument #2 to 'gsub' (string, function, or table expected, got " .. type(repl) .. ")")
+    assert(type(s) == "string", "bad argument #1 to 'gsub' (string expected, got " .. type(s) .. ")")
+    assert(type(repl) == "string" or type(repl) == "function" or type(repl) == "table", "bad argument #2 to 'gsub' (string, function, or table expected, got " .. type(repl) .. ")")
 
-	m = tonumber(n)
-	return rex.gsub(s, self.pattern, repl, n, (self.caseless and 1 or 0) + (self.oneline and 2 or 0))
+    m = tonumber(n)
+    return rex.gsub(s, self.pattern, repl, n, (self.caseless and 1 or 0) + (self.oneline and 2 or 0))
 end
 
 ------------------------
