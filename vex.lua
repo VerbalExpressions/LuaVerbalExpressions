@@ -186,7 +186,7 @@ end
 
 ------------------------
 -- Find a line break.
--- @usage local v = vex():lineBreak()
+-- @usage local v = vex():linebreak()
 -- @treturn table The vex object (for chaining)
 function vex:linebreak()
     return add(self, "(?:(?:\n)|(?:\r\n))")
@@ -194,8 +194,8 @@ end
 
 ------------------------
 -- @function vex:br
--- @see vex:lineBreak
-vex["br"] = vex["lineBreak"]
+-- @see vex:linebreak
+vex["br"] = vex["linebreak"]
 
 
 ------------------------
@@ -228,8 +228,8 @@ end
 ------------------------
 -- @function vex:any
 -- @tparam string v The characters to match
--- @see vex:anyOf
-vex["any"] = vex["anyOf"]
+-- @see vex:anyof
+vex["any"] = vex["anyof"]
 
 ------------------------
 -- Find any range of characters.

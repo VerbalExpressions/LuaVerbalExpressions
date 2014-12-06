@@ -55,6 +55,12 @@
 </p>
 <p>
 
+<h1> Verbal Expressions for Lua (vex) Documentation</h1>
+<p> vex is a Verbal Expressions module for Lua that utilizes the <a href="http://math2.org/luasearch/rex.html">rex</a> module to supply developers with an easy to use implementation of Regular Expressions.
+ Following the <a href="https://github.com/VerbalExpressions/implementation/wiki/List-of-methods-to-implement">implementation guidelines</a>,
+ vex allows the chaining of vex objects for both simplicity and readability.</p>
+
+<p> To use vex, just require it in your project and use it like so</p>
 </p>
     <h3>Usage:</h3>
     <ul>
@@ -81,11 +87,11 @@
 <h2><a href="#Anchors">Anchors </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#vex:startOfLine">vex:startOfLine&nbsp;()</a></td>
+	<td class="name" nowrap><a href="#vex:startofline">vex:startofline&nbsp;()</a></td>
 	<td class="summary">Specify that the expression should match at the start of a line of text.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#vex:endOfLine">vex:endOfLine&nbsp;()</a></td>
+	<td class="name" nowrap><a href="#vex:endofline">vex:endofline&nbsp;()</a></td>
 	<td class="summary">Specify that the expression should match at the end of a line of text.</td>
 	</tr>
 </table>
@@ -104,7 +110,7 @@
 	<td class="summary">Find anything.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#vex:anythingBut">vex:anythingBut&nbsp;(v)</a></td>
+	<td class="name" nowrap><a href="#vex:anythingbut">vex:anythingbut&nbsp;(v)</a></td>
 	<td class="summary">Find anything except for the specified text.</td>
 	</tr>
 	<tr>
@@ -112,7 +118,7 @@
 	<td class="summary">Find at least one thing.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#vex:lineBreak">vex:lineBreak&nbsp;()</a></td>
+	<td class="name" nowrap><a href="#vex:linebreak">vex:linebreak&nbsp;()</a></td>
 	<td class="summary">Find a line break.</td>
 	</tr>
 	<tr>
@@ -130,7 +136,7 @@
 	<td class="summary">Find a word made up of letters.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#vex:anyOf">vex:anyOf&nbsp;(v)</a></td>
+	<td class="name" nowrap><a href="#vex:anyof">vex:anyof&nbsp;(v)</a></td>
 	<td class="summary">Find any of the specified characters.</td>
 	</tr>
 	<tr>
@@ -159,11 +165,11 @@
 	<td class="summary">Match a number of the last group or matcher between 'n' and 'm' (inclusive).</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#vex:atLeast">vex:atLeast&nbsp;(n)</a></td>
+	<td class="name" nowrap><a href="#vex:atleast">vex:atleast&nbsp;(n)</a></td>
 	<td class="summary">Match at least a number of the last group or matcher.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#vex:noMoreThan">vex:noMoreThan&nbsp;(n)</a></td>
+	<td class="name" nowrap><a href="#vex:nomorethan">vex:nomorethan&nbsp;(n)</a></td>
 	<td class="summary">Match no more than a number of the last group or matcher.</td>
 	</tr>
 </table>
@@ -174,34 +180,34 @@
 	<td class="summary">Specifies that either the previous matcher or group or the following matcher or group is acceptable.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#vex:beginCapture">vex:beginCapture&nbsp;()</a></td>
+	<td class="name" nowrap><a href="#vex:begincapture">vex:begincapture&nbsp;()</a></td>
 	<td class="summary">Marks the beginning of a capture.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#vex:endCapture">vex:endCapture&nbsp;()</a></td>
+	<td class="name" nowrap><a href="#vex:endcapture">vex:endcapture&nbsp;()</a></td>
 	<td class="summary">Marks the end of a capture.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#vex:beginGroup">vex:beginGroup&nbsp;()</a></td>
+	<td class="name" nowrap><a href="#vex:begingroup">vex:begingroup&nbsp;()</a></td>
 	<td class="summary">Marks the beginning of a group.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#vex:endGroup">vex:endGroup&nbsp;()</a></td>
+	<td class="name" nowrap><a href="#vex:endgroup">vex:endgroup&nbsp;()</a></td>
 	<td class="summary">Marks the end of a group.</td>
 	</tr>
 </table>
 <h2><a href="#Flags">Flags </a></h2>
 <table class="function_list">
 	<tr>
-	<td class="name" nowrap><a href="#vex:withAnyCase">vex:withAnyCase&nbsp;()</a></td>
+	<td class="name" nowrap><a href="#vex:withanycase">vex:withanycase&nbsp;()</a></td>
 	<td class="summary">Matches the expression against any character case.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#vex:stopAtFirst">vex:stopAtFirst&nbsp;()</a></td>
+	<td class="name" nowrap><a href="#vex:stopatfirst">vex:stopatfirst&nbsp;()</a></td>
 	<td class="summary">Forces the expression to stop once it's found a match.</td>
 	</tr>
 	<tr>
-	<td class="name" nowrap><a href="#vex:searchOneLine">vex:searchOneLine&nbsp;()</a></td>
+	<td class="name" nowrap><a href="#vex:searchoneline">vex:searchoneline&nbsp;()</a></td>
 	<td class="summary">Forces the expression to stop at the end of a line.</td>
 	</tr>
 </table>
@@ -299,8 +305,8 @@
  Anchors attach an expression to the beginning or end of a line of text.
     <dl class="function">
     <dt>
-    <a name = "vex:startOfLine"></a>
-    <strong>vex:startOfLine&nbsp;()</strong>
+    <a name = "vex:startofline"></a>
+    <strong>vex:startofline&nbsp;()</strong>
     </dt>
     <dd>
     Specify that the expression should match at the start of a line of text.
@@ -312,8 +318,8 @@
 
 </dd>
     <dt>
-    <a name = "vex:endOfLine"></a>
-    <strong>vex:endOfLine&nbsp;()</strong>
+    <a name = "vex:endofline"></a>
+    <strong>vex:endofline&nbsp;()</strong>
     </dt>
     <dd>
     Specify that the expression should match at the end of a line of text.
@@ -406,8 +412,8 @@
 
 </dd>
     <dt>
-    <a name = "vex:anythingBut"></a>
-    <strong>vex:anythingBut&nbsp;(v)</strong>
+    <a name = "vex:anythingbut"></a>
+    <strong>vex:anythingbut&nbsp;(v)</strong>
     </dt>
     <dd>
     Find anything except for the specified text.
@@ -454,8 +460,8 @@
 
 </dd>
     <dt>
-    <a name = "vex:lineBreak"></a>
-    <strong>vex:lineBreak&nbsp;()</strong>
+    <a name = "vex:linebreak"></a>
+    <strong>vex:linebreak&nbsp;()</strong>
     </dt>
     <dd>
     Find a line break.
@@ -472,7 +478,7 @@
 
     <h3>Usage:</h3>
     <ul>
-        <pre class="example"><span class="keyword">local</span> v = vex():lineBreak()</pre>
+        <pre class="example"><span class="keyword">local</span> v = vex():linebreak()</pre>
     </ul>
 
 </dd>
@@ -488,7 +494,7 @@
 
     <h3>see also:</h3>
     <ul>
-         <a href="readme.html#vex:lineBreak">vex:lineBreak</a>
+         <a href="readme.html#vex:linebreak">vex:linebreak</a>
     </ul>
 
 
@@ -540,8 +546,8 @@
 
 </dd>
     <dt>
-    <a name = "vex:anyOf"></a>
-    <strong>vex:anyOf&nbsp;(v)</strong>
+    <a name = "vex:anyof"></a>
+    <strong>vex:anyof&nbsp;(v)</strong>
     </dt>
     <dd>
     Find any of the specified characters.
@@ -582,7 +588,7 @@
 
     <h3>see also:</h3>
     <ul>
-         <a href="readme.html#vex:anyOf">vex:anyOf</a>
+         <a href="readme.html#vex:anyof">vex:anyof</a>
     </ul>
 
 
@@ -709,8 +715,8 @@
 
 </dd>
     <dt>
-    <a name = "vex:atLeast"></a>
-    <strong>vex:atLeast&nbsp;(n)</strong>
+    <a name = "vex:atleast"></a>
+    <strong>vex:atleast&nbsp;(n)</strong>
     </dt>
     <dd>
     Match at least a number of the last group or matcher.
@@ -734,8 +740,8 @@
 
 </dd>
     <dt>
-    <a name = "vex:noMoreThan"></a>
-    <strong>vex:noMoreThan&nbsp;(n)</strong>
+    <a name = "vex:nomorethan"></a>
+    <strong>vex:nomorethan&nbsp;(n)</strong>
     </dt>
     <dd>
     Match no more than a number of the last group or matcher.
@@ -785,8 +791,8 @@
 
 </dd>
     <dt>
-    <a name = "vex:beginCapture"></a>
-    <strong>vex:beginCapture&nbsp;()</strong>
+    <a name = "vex:begincapture"></a>
+    <strong>vex:begincapture&nbsp;()</strong>
     </dt>
     <dd>
     Marks the beginning of a capture.
@@ -804,8 +810,8 @@
 
 </dd>
     <dt>
-    <a name = "vex:endCapture"></a>
-    <strong>vex:endCapture&nbsp;()</strong>
+    <a name = "vex:endcapture"></a>
+    <strong>vex:endcapture&nbsp;()</strong>
     </dt>
     <dd>
     Marks the end of a capture.
@@ -823,8 +829,8 @@
 
 </dd>
     <dt>
-    <a name = "vex:beginGroup"></a>
-    <strong>vex:beginGroup&nbsp;()</strong>
+    <a name = "vex:begingroup"></a>
+    <strong>vex:begingroup&nbsp;()</strong>
     </dt>
     <dd>
     Marks the beginning of a group.
@@ -842,8 +848,8 @@
 
 </dd>
     <dt>
-    <a name = "vex:endGroup"></a>
-    <strong>vex:endGroup&nbsp;()</strong>
+    <a name = "vex:endgroup"></a>
+    <strong>vex:endgroup&nbsp;()</strong>
     </dt>
     <dd>
     Marks the end of a group.
@@ -866,8 +872,8 @@
  Flags are used to specify that certain properties should be applied to an expression.
     <dl class="function">
     <dt>
-    <a name = "vex:withAnyCase"></a>
-    <strong>vex:withAnyCase&nbsp;()</strong>
+    <a name = "vex:withanycase"></a>
+    <strong>vex:withanycase&nbsp;()</strong>
     </dt>
     <dd>
     Matches the expression against any character case.
@@ -885,8 +891,8 @@
 
 </dd>
     <dt>
-    <a name = "vex:stopAtFirst"></a>
-    <strong>vex:stopAtFirst&nbsp;()</strong>
+    <a name = "vex:stopatfirst"></a>
+    <strong>vex:stopatfirst&nbsp;()</strong>
     </dt>
     <dd>
     Forces the expression to stop once it's found a match.
@@ -904,8 +910,8 @@
 
 </dd>
     <dt>
-    <a name = "vex:searchOneLine"></a>
-    <strong>vex:searchOneLine&nbsp;()</strong>
+    <a name = "vex:searchoneline"></a>
+    <strong>vex:searchoneline&nbsp;()</strong>
     </dt>
     <dd>
     Forces the expression to stop at the end of a line.
