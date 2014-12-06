@@ -19,7 +19,7 @@ Here are a few examples to show you how it all works.
 ### Matching against a URL
 Here, we test to see if a URL is valid. Note that each method in the vex object returns itself, allowing you to chain methods together.
 ```Lua
-tester = vex():startOfLine():find("http"):maybe("s"):find("://"):maybe("www."):anythingBut(" "):endOfLine()
+tester = vex():startofline():find("http"):maybe("s"):find("://"):maybe("www."):anythingbut(" "):endofline()
 testURL = "https://github.com"
 
 print("Testing \n\t" .. tester.pattern .. "\nagainst\n\t" .. testURL .. "\n")
@@ -41,7 +41,7 @@ print(res)
 Vex also supports captures and has methods to specify how many of an object or group you want.
 ```Lua
 str = "cat and dog and fish and buffalo buffalo buffalo buffalo buffalo buffalo"
-tester = vex():beginCapture():find("cat"):endCapture():find(" and "):beginCapture():find("dog"):endCapture():find(" and "):beginCapture():find("fish"):endCapture():find(" and "):beginCapture():beginGroup():find("buffalo"):maybe(" "):endGroup():noMoreThan(3):endCapture():anything()
+tester = vex():begincapture():find("cat"):endcapture():find(" and "):begincapture():find("dog"):endcapture():find(" and "):begincapture():find("fish"):endcapture():find(" and "):begincapture():begingroup():find("buffalo"):maybe(" "):endgroup():nomorethan(3):endcapture():anything()
 cat, dog, fish, buffalo = tester:match(str)
 print(cat, dog, fish, buffalo)
 ```
