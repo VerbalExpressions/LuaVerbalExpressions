@@ -5,7 +5,7 @@ print("Test Matching\n")
 tester = vex():startofline():find("http"):maybe("s"):find("://"):maybe("www."):anythingbut(" "):endofline()
 testURL = "https://github.com"
 
-print("Testing \n\t" .. tester.pattern .. "\nagainst\n\t" .. testURL .. "\n")
+print("Testing \n\t" .. tester:pattern() .. "\nagainst\n\t" .. testURL .. "\n")
 res = tester:match(testURL)
 print(res and "It works!" or "It's broken!")
 
@@ -22,12 +22,12 @@ print("\n\nTest Quantifiers\n")
 hello = vex():begincapture():find("he"):find("l"):exactly(2):find("o, World!"):endcapture():withanycase():anything()
 testStr = "Hello, World! This is Verbal Expressions!"
 print("With 2 l's")
-print("\t" .. hello.pattern)
+print("\t" .. hello:pattern())
 print("\t" .. testStr)
 print("\t" .. (hello:match(testStr) or "No match!"))
 testStr = "Helo, World! This is Verbal Expressions!"
 print("With 1 l")
-print("\t" .. hello.pattern)
+print("\t" .. hello:pattern())
 print("\t" .. testStr)
 print("\t" .. (hello:match(testStr) or "No match!"))
 
