@@ -2,7 +2,7 @@ vex = require("vex")
 
 print("Test Matching\n")
 
-tester = vex():startOfLine():find("http"):maybe("s"):find("://"):maybe("www."):anythingBut(" "):endOfLine()
+tester = vex():startofline():find("http"):maybe("s"):find("://"):maybe("www."):anythingbut(" "):endofline()
 testURL = "https://github.com"
 
 print("Testing \n\t" .. tester.pattern .. "\nagainst\n\t" .. testURL .. "\n")
@@ -19,7 +19,7 @@ print(res)
 
 
 print("\n\nTest Quantifiers\n")
-hello = vex():beginCapture():find("he"):find("l"):exactly(2):find("o, World!"):endCapture():withAnyCase():anything()
+hello = vex():begincapture():find("he"):find("l"):exactly(2):find("o, World!"):endcapture():withanycase():anything()
 testStr = "Hello, World! This is Verbal Expressions!"
 print("With 2 l's")
 print("\t" .. hello.pattern)
@@ -33,6 +33,6 @@ print("\t" .. (hello:match(testStr) or "No match!"))
 
 print("\n\nTest Captures\n")
 str = "cat and dog and fish and buffalo buffalo buffalo buffalo buffalo buffalo"
-tester = vex():beginCapture():find("cat"):endCapture():find(" and "):beginCapture():find("dog"):endCapture():find(" and "):beginCapture():find("fish"):endCapture():find(" and "):beginCapture():beginGroup():find("buffalo"):maybe(" "):endGroup():noMoreThan(3):endCapture():anything()
+tester = vex():begincapture():find("cat"):endcapture():find(" and "):begincapture():find("dog"):endcapture():find(" and "):begincapture():find("fish"):endcapture():find(" and "):begincapture():begingroup():find("buffalo"):maybe(" "):endgroup():nomorethan(3):endcapture():anything()
 cat, dog, fish, buffalo = tester:match(str)
 print(cat, dog, fish, buffalo)
