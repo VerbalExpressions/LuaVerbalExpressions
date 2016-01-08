@@ -1,4 +1,4 @@
-Vex - Verbal Expressions for Lua
+Lua Verbal Expressions - Vex
 ================================
 Vex is a Lua module which implements the [Verbal Expressions](https://github.com/VerbalExpressions/) standard in order to simplify regular expressions to common language.
 
